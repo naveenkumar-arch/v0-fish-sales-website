@@ -55,17 +55,18 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {/* Products with Dropdown */}
-            <div className="relative group">
+            <div className="relative">
               <motion.button
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
+                onClick={() => setCategoryMenuOpen(!categoryMenuOpen)}
                 onMouseEnter={() => setCategoryMenuOpen(true)}
                 onMouseLeave={() => setCategoryMenuOpen(false)}
                 className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-1"
               >
                 Products
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className={`w-4 h-4 transition-transform ${categoryMenuOpen ? 'rotate-180' : ''}`} />
               </motion.button>
 
               {/* Dropdown Menu */}
@@ -77,7 +78,7 @@ export default function Header() {
                     exit={{ opacity: 0, y: -10 }}
                     onMouseEnter={() => setCategoryMenuOpen(true)}
                     onMouseLeave={() => setCategoryMenuOpen(false)}
-                    className="absolute top-full left-0 mt-2 bg-card border border-border rounded-lg shadow-2xl overflow-hidden min-w-48"
+                    className="absolute top-full left-0 mt-2 bg-card border border-border rounded-lg shadow-2xl overflow-hidden min-w-48 z-50"
                   >
                     {categories.map((cat, i) => (
                       <motion.button
@@ -96,33 +97,33 @@ export default function Header() {
               </AnimatePresence>
             </div>
 
-            <motion.a
-              href="#videos"
+            <motion.button
+              onClick={() => document.getElementById('videos')?.scrollIntoView({ behavior: 'smooth' })}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-foreground hover:text-primary transition-colors font-medium"
+              className="text-foreground hover:text-primary transition-colors font-medium bg-transparent border-none cursor-pointer"
             >
               Videos
-            </motion.a>
-            <motion.a
-              href="#about"
+            </motion.button>
+            <motion.button
+              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-foreground hover:text-primary transition-colors font-medium"
+              className="text-foreground hover:text-primary transition-colors font-medium bg-transparent border-none cursor-pointer"
             >
               About
-            </motion.a>
-            <motion.a
-              href="#contact"
+            </motion.button>
+            <motion.button
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-foreground hover:text-primary transition-colors font-medium"
+              className="text-foreground hover:text-primary transition-colors font-medium bg-transparent border-none cursor-pointer"
             >
               Contact
-            </motion.a>
+            </motion.button>
           </nav>
 
           {/* Right Side - Cart & Auth */}
@@ -254,15 +255,33 @@ export default function Header() {
               ))}
             </div>
 
-            <a href="#videos" className="py-2 px-2 text-foreground hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+            <button 
+              onClick={() => {
+                document.getElementById('videos')?.scrollIntoView({ behavior: 'smooth' })
+                setMobileMenuOpen(false)
+              }}
+              className="w-full text-left py-2 px-2 text-foreground hover:text-primary transition-colors bg-transparent border-none cursor-pointer"
+            >
               Videos
-            </a>
-            <a href="#about" className="py-2 px-2 text-foreground hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+            </button>
+            <button 
+              onClick={() => {
+                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+                setMobileMenuOpen(false)
+              }}
+              className="w-full text-left py-2 px-2 text-foreground hover:text-primary transition-colors bg-transparent border-none cursor-pointer"
+            >
               About
-            </a>
-            <a href="#contact" className="py-2 px-2 text-foreground hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+            </button>
+            <button 
+              onClick={() => {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                setMobileMenuOpen(false)
+              }}
+              className="w-full text-left py-2 px-2 text-foreground hover:text-primary transition-colors bg-transparent border-none cursor-pointer"
+            >
               Contact
-            </a>
+            </button>
 
             {/* Mobile Auth Buttons */}
             {!isAuthenticated && (
