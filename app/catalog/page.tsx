@@ -1,42 +1,51 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Filter } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { ArrowRight } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useAuthStore } from '@/lib/auth-store'
+import { products } from '@/lib/products-db'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
-const allProducts = [
-  { id: 1, name: 'Koi Fish Premium', price: '$89.99', image: 'https://images.unsplash.com/photo-1585088504174-6e2fcc66a21c?w=500&h=500&fit=crop', category: 'Featured', rating: 4.9 },
-  { id: 2, name: 'Discus Showpiece', price: '$124.99', image: 'https://images.unsplash.com/photo-1534917617694-0f55a2df8f05?w=500&h=500&fit=crop', category: 'Premium', rating: 4.8 },
-  { id: 3, name: 'Neon Tetra Collection', price: '$34.99', image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&h=500&fit=crop', category: 'Beginner', rating: 4.7 },
-  { id: 4, name: 'Angelfish Pair', price: '$54.99', image: 'https://images.unsplash.com/photo-1535941339077-2dd1c7963c2b?w=500&h=500&fit=crop', category: 'Intermediate', rating: 4.9 },
-  { id: 5, name: 'Betta Fish Exotic', price: '$44.99', image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&h=500&fit=crop', category: 'Premium', rating: 4.6 },
-  { id: 6, name: 'Goldfish Standard', price: '$19.99', image: 'https://images.unsplash.com/photo-1585088504174-6e2fcc66a21c?w=500&h=500&fit=crop', category: 'Beginner', rating: 4.5 },
-  { id: 7, name: 'Guppy Rainbow Pack', price: '$29.99', image: 'https://images.unsplash.com/photo-1534917617694-0f55a2df8f05?w=500&h=500&fit=crop', category: 'Beginner', rating: 4.8 },
-  { id: 8, name: 'Pleco Catfish', price: '$64.99', image: 'https://images.unsplash.com/photo-1535941339077-2dd1c7963c2b?w=500&h=500&fit=crop', category: 'Intermediate', rating: 4.7 },
-  { id: 9, name: 'Oscar Fish Pair', price: '$79.99', image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&h=500&fit=crop', category: 'Intermediate', rating: 4.9 },
-  { id: 10, name: 'Cichlid Assortment', price: '$149.99', image: 'https://images.unsplash.com/photo-1585088504174-6e2fcc66a21c?w=500&h=500&fit=crop', category: 'Premium', rating: 4.8 },
-]
-
-const categories = ['All', 'Featured', 'Beginner', 'Intermediate', 'Premium']
-
-export default function CatalogPage() {
+function CatalogContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const { isAuthenticated } = useAuthStore()
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [sortBy, setSortBy] = useState('featured')
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/login')
+    }
+  }, [isAuthenticated, router])
+
+  useEffect(() => {
+    const category = searchParams.get('category')
+    if (category) {
+      setSelectedCategory(category)
+    }
+  }, [searchParams])
+
+  if (!isAuthenticated) {
+    return null
+  }
+
+  const categories = ['All', 'Freshwater', 'Saltwater', 'Plants', 'Accessories']
+
   const filteredProducts = selectedCategory === 'All' 
-    ? allProducts 
-    : allProducts.filter(p => p.category === selectedCategory)
+    ? products
+    : products.filter(p => p.category === selectedCategory)
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortBy === 'price-low') return parseFloat(a.price) - parseFloat(b.price)
-    if (sortBy === 'price-high') return parseFloat(b.price) - parseFloat(a.price)
+    if (sortBy === 'price-low') return a.price - b.price
+    if (sortBy === 'price-high') return b.price - a.price
     if (sortBy === 'rating') return b.rating - a.rating
+    if (sortBy === 'featured') return b.featured ? 1 : -1
     return 0
   })
 
@@ -80,7 +89,7 @@ export default function CatalogPage() {
               Premium Fish Catalog
             </h1>
             <p className="text-foreground/60 text-lg max-w-2xl mx-auto">
-              Browse our complete collection of premium fish species, carefully selected for quality and vitality
+              Browse our complete collection of {sortedProducts.length} premium fish species and accessories
             </p>
           </motion.div>
 
@@ -93,14 +102,14 @@ export default function CatalogPage() {
           >
             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between p-6 rounded-lg bg-card/50 border border-border/50 backdrop-blur">
               {/* Category Filters */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                 {categories.map(cat => (
                   <motion.button
                     key={cat}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                    className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${
                       selectedCategory === cat
                         ? 'bg-primary text-primary-foreground shadow-lg'
                         : 'bg-background border border-border hover:bg-card'
@@ -115,7 +124,7 @@ export default function CatalogPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="px-4 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 w-full sm:w-auto"
               >
                 <option value="featured">Featured</option>
                 <option value="price-low">Price: Low to High</option>
@@ -135,7 +144,7 @@ export default function CatalogPage() {
             {sortedProducts.map(product => (
               <motion.div key={product.id} variants={itemVariants}>
                 <Card className="overflow-hidden h-full flex flex-col border-0 shadow-lg hover:shadow-2xl transition-shadow duration-300 group cursor-pointer">
-                  <div className="relative overflow-hidden bg-muted h-64">
+                  <div className="relative overflow-hidden bg-muted h-48">
                     <motion.img
                       src={product.image}
                       alt={product.name}
@@ -153,28 +162,44 @@ export default function CatalogPage() {
                         View Details <ArrowRight className="w-4 h-4" />
                       </motion.button>
                     </div>
+
+                    {/* Featured Badge */}
+                    {product.featured && (
+                      <div className="absolute top-3 right-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-bold">
+                        Featured
+                      </div>
+                    )}
+
+                    {/* Stock Badge */}
+                    {!product.inStock && (
+                      <div className="absolute top-3 left-3 bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-xs font-bold">
+                        Out of Stock
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6 flex-1 flex flex-col">
                     <div className="mb-3">
                       <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
-                        {product.category}
+                        {product.level}
                       </span>
                     </div>
-                    <h3 className="font-bold text-lg mb-2">{product.name}</h3>
+                    <h3 className="font-bold text-lg mb-2 line-clamp-2">{product.name}</h3>
+                    <p className="text-sm text-foreground/60 mb-3 line-clamp-1">{product.description}</p>
                     <div className="flex items-center gap-1 mb-4 text-sm text-foreground/60">
                       {'★'.repeat(Math.floor(product.rating))}
                       <span>({product.rating})</span>
                     </div>
                     <div className="mt-auto space-y-4">
-                      <div className="text-2xl font-bold text-primary">{product.price}</div>
+                      <div className="text-2xl font-bold text-primary">${product.price.toFixed(2)}</div>
                       <motion.button
                         onClick={() => handleAddToCart(product.id, product.name)}
+                        disabled={!product.inStock}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-2 rounded-lg font-semibold transition-colors"
+                        className="w-full bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed text-primary-foreground py-2 rounded-lg font-semibold transition-colors"
                       >
-                        Add to Cart
+                        {product.inStock ? 'Add to Cart' : 'Out of Stock'}
                       </motion.button>
                     </div>
                   </div>
@@ -190,12 +215,20 @@ export default function CatalogPage() {
             transition={{ delay: 0.5 }}
             className="text-center text-foreground/60 mb-12"
           >
-            Showing {sortedProducts.length} product{sortedProducts.length !== 1 ? 's' : ''}
+            Showing {sortedProducts.length} product{sortedProducts.length !== 1 ? 's' : ''} in {selectedCategory === 'All' ? 'all categories' : selectedCategory}
           </motion.div>
         </div>
       </section>
 
       <Footer />
     </main>
+  )
+}
+
+export default function CatalogPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CatalogContent />
+    </Suspense>
   )
 }

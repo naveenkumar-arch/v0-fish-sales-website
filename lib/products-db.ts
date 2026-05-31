@@ -1,0 +1,593 @@
+export interface Product {
+  id: number
+  name: string
+  price: number
+  category: 'Freshwater' | 'Saltwater' | 'Plants' | 'Accessories'
+  level: 'Beginner' | 'Intermediate' | 'Advanced'
+  image: string
+  rating: number
+  reviews: number
+  description: string
+  inStock: boolean
+  featured: boolean
+  specs: { label: string; value: string }[]
+  benefits: string[]
+}
+
+export const products: Product[] = [
+  // Freshwater Fish - Beginner
+  {
+    id: 1,
+    name: 'Goldfish Standard',
+    price: 19.99,
+    category: 'Freshwater',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1585088504174-6e2fcc66a21c?w=800&h=600&fit=crop',
+    rating: 4.5,
+    reviews: 234,
+    description: 'Hardy goldfish perfect for beginners, bright orange coloring and friendly personality.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '3-4 inches' },
+      { label: 'Lifespan', value: '10-15 years' },
+      { label: 'Tank Size', value: '20+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Easy to care for', 'Long lifespan', 'Beautiful color', 'Hardy species']
+  },
+  {
+    id: 2,
+    name: 'Neon Tetra Collection',
+    price: 34.99,
+    category: 'Freshwater',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
+    rating: 4.7,
+    reviews: 156,
+    description: 'Vibrant neon tetras with striking blue and red stripes. Great for community tanks.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '1-1.5 inches' },
+      { label: 'School Size', value: '6+ fish' },
+      { label: 'Tank Size', value: '10+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Peaceful community fish', 'Stunning colors', 'Social behavior', 'Affordable']
+  },
+  {
+    id: 3,
+    name: 'Guppy Rainbow Pack',
+    price: 29.99,
+    category: 'Freshwater',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1534917617694-0f55a2df8f05?w=800&h=600&fit=crop',
+    rating: 4.8,
+    reviews: 189,
+    description: 'Colorful guppies with rainbow patterns, ideal for beginners and community tanks.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '1-2 inches' },
+      { label: 'Pack Size', value: '5 fish' },
+      { label: 'Tank Size', value: '5+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Colorful varieties', 'Easy to breed', 'Active swimmers', 'Great for beginners']
+  },
+  {
+    id: 4,
+    name: 'Corydoras Catfish Trio',
+    price: 39.99,
+    category: 'Freshwater',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1535941339077-2dd1c7963c2b?w=800&h=600&fit=crop',
+    rating: 4.6,
+    reviews: 142,
+    description: 'Peaceful bottom feeders that help keep your tank clean. Perfect community fish.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '1-2 inches' },
+      { label: 'Group Size', value: '3+ fish' },
+      { label: 'Tank Size', value: '15+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Great cleanup crew', 'Peaceful nature', 'Entertaining behavior', 'Hardy fish']
+  },
+
+  // Freshwater Fish - Intermediate
+  {
+    id: 5,
+    name: 'Angelfish Pair',
+    price: 54.99,
+    category: 'Freshwater',
+    level: 'Intermediate',
+    image: 'https://images.unsplash.com/photo-1573865526014-f3550bf1cf68?w=800&h=600&fit=crop',
+    rating: 4.9,
+    reviews: 267,
+    description: 'Elegant triangular fish with flowing fins. Stunning centerpiece for any aquarium.',
+    inStock: true,
+    featured: true,
+    specs: [
+      { label: 'Size', value: '6 inches' },
+      { label: 'Pair Type', value: 'Mated pair' },
+      { label: 'Tank Size', value: '20+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Beautiful appearance', 'Can breed in tank', 'Graceful swimmers', 'Semi-aggressive']
+  },
+  {
+    id: 6,
+    name: 'Betta Fish Exotic',
+    price: 44.99,
+    category: 'Freshwater',
+    level: 'Intermediate',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
+    rating: 4.6,
+    reviews: 298,
+    description: 'Exotic betta with flowing fins and vibrant colors. Males must be kept alone.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '3 inches' },
+      { label: 'Housing', value: 'Individual tanks' },
+      { label: 'Tank Size', value: '5+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Vibrant colors', 'Unique personality', 'Long lifespan', 'Easy to feed']
+  },
+  {
+    id: 7,
+    name: 'Pleco Catfish',
+    price: 64.99,
+    category: 'Freshwater',
+    level: 'Intermediate',
+    image: 'https://images.unsplash.com/photo-1585088504174-6e2fcc66a21c?w=800&h=600&fit=crop',
+    rating: 4.7,
+    reviews: 178,
+    description: 'Algae-eating powerhouse that grows large. Excellent tank cleaners.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '12-18 inches' },
+      { label: 'Growth', value: 'Fast' },
+      { label: 'Tank Size', value: '75+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Excellent algae eaters', 'Nocturnal behavior', 'Peaceful nature', 'Long-lived']
+  },
+  {
+    id: 8,
+    name: 'Oscar Fish Pair',
+    price: 79.99,
+    category: 'Freshwater',
+    level: 'Intermediate',
+    image: 'https://images.unsplash.com/photo-1534917617694-0f55a2df8f05?w=800&h=600&fit=crop',
+    rating: 4.8,
+    reviews: 213,
+    description: 'Intelligent and interactive fish with bold orange and black markings.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '8-12 inches' },
+      { label: 'Pair Type', value: 'Bonded pair' },
+      { label: 'Tank Size', value: '55+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Very intelligent', 'Interactive behavior', 'Beautiful patterns', 'Carnivorous diet']
+  },
+
+  // Freshwater Fish - Advanced
+  {
+    id: 9,
+    name: 'Koi Fish Premium',
+    price: 89.99,
+    category: 'Freshwater',
+    level: 'Advanced',
+    image: 'https://images.unsplash.com/photo-1585088504174-6e2fcc66a21c?w=800&h=600&fit=crop',
+    rating: 4.9,
+    reviews: 128,
+    description: 'Stunning premium Kohaku Koi fish featuring vibrant red and white markings.',
+    inStock: true,
+    featured: true,
+    specs: [
+      { label: 'Size', value: '6-8 inches' },
+      { label: 'Lifespan', value: '15-25 years' },
+      { label: 'Tank Size', value: '500+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Hand-selected colors', 'Healthy & quarantined', 'Insured shipping', '30-day guarantee']
+  },
+  {
+    id: 10,
+    name: 'Discus Showpiece',
+    price: 124.99,
+    category: 'Freshwater',
+    level: 'Advanced',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
+    rating: 4.8,
+    reviews: 94,
+    description: 'Premium discus fish with intricate patterns. Requires stable water conditions.',
+    inStock: true,
+    featured: true,
+    specs: [
+      { label: 'Size', value: '8 inches' },
+      { label: 'Pattern Type', value: 'Premium strain' },
+      { label: 'Tank Size', value: '40+ gallons' },
+      { label: 'Water Type', value: 'Softwater' },
+    ],
+    benefits: ['Stunning patterns', 'Elite bloodlines', 'Perfect disc shape', 'Premium quality']
+  },
+  {
+    id: 11,
+    name: 'Cichlid Assortment',
+    price: 149.99,
+    category: 'Freshwater',
+    level: 'Advanced',
+    image: 'https://images.unsplash.com/photo-1534917617694-0f55a2df8f05?w=800&h=600&fit=crop',
+    rating: 4.8,
+    reviews: 156,
+    description: 'Mixed African cichlid collection with vibrant colors and personality.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Species', value: 'Mixed African' },
+      { label: 'Pack Size', value: '8-10 fish' },
+      { label: 'Tank Size', value: '75+ gallons' },
+      { label: 'Water Type', value: 'Freshwater' },
+    ],
+    benefits: ['Vibrant colors', 'Aggressive swimmers', 'Interactive behavior', 'Community setup']
+  },
+
+  // Saltwater Fish - Beginner
+  {
+    id: 12,
+    name: 'Clownfish Pair',
+    price: 49.99,
+    category: 'Saltwater',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1573865526014-f3550bf1cf68?w=800&h=600&fit=crop',
+    rating: 4.9,
+    reviews: 342,
+    description: 'Iconic orange and white clownfish. Hardy saltwater beginners.',
+    inStock: true,
+    featured: true,
+    specs: [
+      { label: 'Size', value: '3-4 inches' },
+      { label: 'Type', value: 'Mated pair' },
+      { label: 'Tank Size', value: '20+ gallons' },
+      { label: 'Water Type', value: 'Saltwater' },
+    ],
+    benefits: ['Hardy species', 'Famous appearance', 'Symbiotic anemone', 'Great for beginners']
+  },
+  {
+    id: 13,
+    name: 'Yellow Tang',
+    price: 59.99,
+    category: 'Saltwater',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1585088504174-6e2fcc66a21c?w=800&h=600&fit=crop',
+    rating: 4.7,
+    reviews: 267,
+    description: 'Bright yellow colored tang that helps control algae. Vibrant reef addition.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '8 inches' },
+      { label: 'Color', value: 'Bright yellow' },
+      { label: 'Tank Size', value: '75+ gallons' },
+      { label: 'Water Type', value: 'Saltwater' },
+    ],
+    benefits: ['Algae control', 'Bright coloring', 'Peaceful nature', 'Hardy fish']
+  },
+  {
+    id: 14,
+    name: 'Blue Damselfish',
+    price: 29.99,
+    category: 'Saltwater',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
+    rating: 4.6,
+    reviews: 178,
+    description: 'Beautiful blue saltwater fish, perfect for establishing new reef tanks.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '2-3 inches' },
+      { label: 'Color', value: 'Electric blue' },
+      { label: 'Tank Size', value: '20+ gallons' },
+      { label: 'Water Type', value: 'Saltwater' },
+    ],
+    benefits: ['Hardy species', 'Territorial but small', 'Bright colors', 'Reef safe']
+  },
+
+  // Saltwater Fish - Intermediate
+  {
+    id: 15,
+    name: 'Moorish Idol Fish',
+    price: 99.99,
+    category: 'Saltwater',
+    level: 'Intermediate',
+    image: 'https://images.unsplash.com/photo-1534917617694-0f55a2df8f05?w=800&h=600&fit=crop',
+    rating: 4.7,
+    reviews: 112,
+    description: 'Stunning striped saltwater fish with unique white and black patterns.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '9 inches' },
+      { label: 'Pattern', value: 'Black/yellow/white' },
+      { label: 'Tank Size', value: '75+ gallons' },
+      { label: 'Water Type', value: 'Saltwater' },
+    ],
+    benefits: ['Stunning patterns', 'Active swimmer', 'Peaceful nature', 'Reef safe']
+  },
+  {
+    id: 16,
+    name: 'Lionfish Captive Bred',
+    price: 89.99,
+    category: 'Saltwater',
+    level: 'Intermediate',
+    image: 'https://images.unsplash.com/photo-1573865526014-f3550bf1cf68?w=800&h=600&fit=crop',
+    rating: 4.8,
+    reviews: 134,
+    description: 'Dramatic lionfish with venomous spines. Captive bred for aquarium life.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '10 inches' },
+      { label: 'Breeding', value: 'Captive bred' },
+      { label: 'Tank Size', value: '60+ gallons' },
+      { label: 'Water Type', value: 'Saltwater' },
+    ],
+    benefits: ['Unique appearance', 'Captive bred', 'Carnivorous diet', 'Venomous but safe']
+  },
+
+  // Saltwater Fish - Advanced
+  {
+    id: 17,
+    name: 'Seahorse Pair',
+    price: 179.99,
+    category: 'Saltwater',
+    level: 'Advanced',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
+    rating: 4.9,
+    reviews: 87,
+    description: 'Delicate captive-bred seahorse pair. Requires specialized care.',
+    inStock: true,
+    featured: true,
+    specs: [
+      { label: 'Size', value: '5-6 inches' },
+      { label: 'Type', value: 'Mated pair' },
+      { label: 'Tank Size', value: '40+ gallons' },
+      { label: 'Water Type', value: 'Saltwater' },
+    ],
+    benefits: ['Unique species', 'Captive bred', 'Can breed in tank', 'Educational']
+  },
+  {
+    id: 18,
+    name: 'Mandarin Fish',
+    price: 69.99,
+    category: 'Saltwater',
+    level: 'Advanced',
+    image: 'https://images.unsplash.com/photo-1585088504174-6e2fcc66a21c?w=800&h=600&fit=crop',
+    rating: 4.6,
+    reviews: 98,
+    description: 'Most colorful fish in the ocean with intricate patterns. Difficult to feed.',
+    inStock: false,
+    featured: false,
+    specs: [
+      { label: 'Size', value: '3-4 inches' },
+      { label: 'Colors', value: 'Multi-colored' },
+      { label: 'Tank Size', value: '20+ gallons' },
+      { label: 'Water Type', value: 'Saltwater' },
+    ],
+    benefits: ['Stunning colors', 'Rare species', 'Peaceful nature', 'Hard to maintain']
+  },
+
+  // Aquatic Plants
+  {
+    id: 19,
+    name: 'Amazon Sword Plant',
+    price: 12.99,
+    category: 'Plants',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
+    rating: 4.8,
+    reviews: 456,
+    description: 'Hardy aquatic plant with large green leaves. Perfect beginner plant.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Height', value: '20-30 cm' },
+      { label: 'Growth', value: 'Fast' },
+      { label: 'Light', value: 'Low to moderate' },
+      { label: 'CO2', value: 'Not required' },
+    ],
+    benefits: ['Easy to grow', 'Hardy plant', 'Great oxygen source', 'Fish shelter']
+  },
+  {
+    id: 20,
+    name: 'Java Fern Bundle',
+    price: 14.99,
+    category: 'Plants',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1534917617694-0f55a2df8f05?w=800&h=600&fit=crop',
+    rating: 4.9,
+    reviews: 523,
+    description: 'Popular aquatic fern that attaches to rocks and wood. Very hardy.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Height', value: '20 cm' },
+      { label: 'Growth', value: 'Slow' },
+      { label: 'Light', value: 'Low' },
+      { label: 'CO2', value: 'Not required' },
+    ],
+    benefits: ['Extremely hardy', 'Low maintenance', 'No substrate needed', 'Absorbs fish waste']
+  },
+  {
+    id: 21,
+    name: 'Anubias Plant',
+    price: 16.99,
+    category: 'Plants',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1573865526014-f3550bf1cf68?w=800&h=600&fit=crop',
+    rating: 4.7,
+    reviews: 389,
+    description: 'Slow-growing plant with thick leaves. Perfect for tanks with many fish.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Height', value: '15-20 cm' },
+      { label: 'Growth', value: 'Very slow' },
+      { label: 'Light', value: 'Low to moderate' },
+      { label: 'CO2', value: 'Not required' },
+    ],
+    benefits: ['Very hardy', 'Slow growth', 'No pruning needed', 'Roots not required']
+  },
+  {
+    id: 22,
+    name: 'Rotala Red Stem',
+    price: 18.99,
+    category: 'Plants',
+    level: 'Intermediate',
+    image: 'https://images.unsplash.com/photo-1535941339077-2dd1c7963c2b?w=800&h=600&fit=crop',
+    rating: 4.6,
+    reviews: 267,
+    description: 'Beautiful red-stemmed plant that adds color to any aquascape.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Height', value: '30+ cm' },
+      { label: 'Growth', value: 'Fast' },
+      { label: 'Light', value: 'High' },
+      { label: 'CO2', value: 'Recommended' },
+    ],
+    benefits: ['Vibrant red color', 'Fast growth', 'Stem plant', 'Propagates easily']
+  },
+
+  // Accessories
+  {
+    id: 23,
+    name: 'Aquarium Filter Pro',
+    price: 79.99,
+    category: 'Accessories',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
+    rating: 4.8,
+    reviews: 612,
+    description: 'High-performance filter system for tanks up to 50 gallons.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Capacity', value: 'Up to 50 gallons' },
+      { label: 'Flow Rate', value: '250 GPH' },
+      { label: 'Media', value: 'Included' },
+      { label: 'Noise', value: 'Quiet' },
+    ],
+    benefits: ['Powerful filtration', 'Easy maintenance', 'Quiet operation', 'Reliable']
+  },
+  {
+    id: 24,
+    name: 'LED Aquarium Light',
+    price: 49.99,
+    category: 'Accessories',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1585088504174-6e2fcc66a21c?w=800&h=600&fit=crop',
+    rating: 4.9,
+    reviews: 789,
+    description: 'Energy-efficient LED light with adjustable color and brightness.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Power', value: '30W' },
+      { label: 'Colors', value: '16+ colors' },
+      { label: 'Timer', value: 'Programmable' },
+      { label: 'Lifespan', value: '50,000 hours' },
+    ],
+    benefits: ['Energy efficient', 'Beautiful colors', 'Programmable timer', 'Long-lasting']
+  },
+  {
+    id: 25,
+    name: 'Heater Thermostat Set',
+    price: 34.99,
+    category: 'Accessories',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1534917617694-0f55a2df8f05?w=800&h=600&fit=crop',
+    rating: 4.7,
+    reviews: 445,
+    description: 'Reliable heater with digital thermostat for temperature control.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Wattage', value: '100W' },
+      { label: 'Range', value: '20-30°C' },
+      { label: 'Digital', value: 'Yes' },
+      { label: 'Safety', value: 'Auto shut-off' },
+    ],
+    benefits: ['Precise temperature', 'Reliable heating', 'Safe operation', 'Affordable']
+  },
+  {
+    id: 26,
+    name: 'Air Pump with Tubing',
+    price: 24.99,
+    category: 'Accessories',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1573865526014-f3550bf1cf68?w=800&h=600&fit=crop',
+    rating: 4.6,
+    reviews: 334,
+    description: 'Silent air pump with airstone and tubing for increased oxygenation.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Flow Rate', value: '180 L/H' },
+      { label: 'Noise', value: 'Very quiet' },
+      { label: 'Includes', value: 'Airstone & tubing' },
+      { label: 'Power', value: '3W' },
+    ],
+    benefits: ['Quiet operation', 'Increased oxygen', 'Complete setup', 'Affordable']
+  },
+  {
+    id: 27,
+    name: 'Tank Cleaning Kit',
+    price: 19.99,
+    category: 'Accessories',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
+    rating: 4.8,
+    reviews: 512,
+    description: 'Complete cleaning kit with algae scraper, gravel vacuum, and nets.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Items', value: '5 pieces' },
+      { label: 'Material', value: 'Plastic & stainless' },
+      { label: 'Storage', value: 'Hanging net' },
+      { label: 'Maintenance', value: 'Easy' },
+    ],
+    benefits: ['Complete kit', 'Easy maintenance', 'Durable tools', 'Great value']
+  },
+  {
+    id: 28,
+    name: 'Aquarium Water Test Kit',
+    price: 29.99,
+    category: 'Accessories',
+    level: 'Beginner',
+    image: 'https://images.unsplash.com/photo-1535941339077-2dd1c7963c2b?w=800&h=600&fit=crop',
+    rating: 4.9,
+    reviews: 678,
+    description: 'Professional water testing kit for pH, ammonia, nitrite, and nitrate.',
+    inStock: true,
+    featured: false,
+    specs: [
+      { label: 'Tests', value: '5 parameters' },
+      { label: 'Accuracy', value: 'High precision' },
+      { label: 'Tests Per Kit', value: '100+' },
+      { label: 'Instructions', value: 'Detailed' },
+    ],
+    benefits: ['Accurate testing', 'Professional grade', 'Many tests included', 'Essential tool']
+  },
+]
