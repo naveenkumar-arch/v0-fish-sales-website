@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { Star, Heart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const products = [
   {
@@ -65,6 +67,26 @@ const itemVariants = {
 }
 
 export default function ProductShowcase() {
+  const router = useRouter()
+  const [wishlisted, setWishlisted] = useState<number[]>([])
+
+  const handleAddToCart = (productId: number, productName: string) => {
+    console.log(`[v0] Added ${productName} (ID: ${productId}) to cart`)
+    router.push('/cart')
+  }
+
+  const handleViewAll = () => {
+    router.push('/catalog')
+  }
+
+  const handleWishlist = (productId: number) => {
+    setWishlisted(prev => 
+      prev.includes(productId) 
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId]
+    )
+  }
+
   return (
     <section id="products" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-blue-50/5 dark:to-blue-950/5">
       <div className="max-w-7xl mx-auto">
@@ -115,11 +137,12 @@ export default function ProductShowcase() {
                     </div>
                   )}
                   <motion.button
+                    onClick={() => handleWishlist(product.id)}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                     className="absolute top-3 left-3 bg-white/80 backdrop-blur hover:bg-white p-2 rounded-full shadow-md"
                   >
-                    <Heart className="w-5 h-5 text-red-500" />
+                    <Heart className={`w-5 h-5 ${wishlisted.includes(product.id) ? 'fill-red-500 text-red-500' : 'text-red-500'}`} />
                   </motion.button>
                 </div>
 
@@ -150,6 +173,7 @@ export default function ProductShowcase() {
                   <div className="mt-auto space-y-4">
                     <div className="text-2xl font-bold text-primary">{product.price}</div>
                     <motion.button
+                      onClick={() => handleAddToCart(product.id, product.name)}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-2 rounded-lg font-semibold transition-colors"
@@ -171,7 +195,11 @@ export default function ProductShowcase() {
           viewport={{ once: true }}
           className="flex justify-center mt-16"
         >
-          <Button size="lg" className="font-semibold px-8 py-6 rounded-lg">
+          <Button 
+            size="lg" 
+            onClick={handleViewAll}
+            className="font-semibold px-8 py-6 rounded-lg"
+          >
             View All Products
           </Button>
         </motion.div>

@@ -7,8 +7,14 @@ import Footer from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function ProductDetailPage() {
+  const router = useRouter()
+  const [isWishlisted, setIsWishlisted] = useState(false)
+  const [showShareMenu, setShowShareMenu] = useState(false)
+
   const product = {
     id: 1,
     name: 'Koi Fish Premium - Kohaku',
@@ -40,6 +46,41 @@ export default function ProductDetailPage() {
     { id: 3, name: 'Showa Koi Fish', price: '$109.99', image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&h=500&fit=crop' },
     { id: 4, name: 'Asagi Koi Fish', price: '$94.99', image: 'https://images.unsplash.com/photo-1535941339077-2dd1c7963c2b?w=500&h=500&fit=crop' },
   ]
+
+  const handleAddToCart = () => {
+    console.log(`[v0] Added ${product.name} to cart (Price: $${product.price})`)
+    router.push('/cart')
+  }
+
+  const handleWishlist = () => {
+    setIsWishlisted(!isWishlisted)
+    console.log(`[v0] ${isWishlisted ? 'Removed from' : 'Added to'} wishlist: ${product.name}`)
+  }
+
+  const handleShare = (platform: string) => {
+    const url = typeof window !== 'undefined' ? window.location.href : ''
+    const title = product.name
+    console.log(`[v0] Sharing on ${platform}: ${title}`)
+    
+    switch (platform) {
+      case 'copy':
+        navigator.clipboard.writeText(url)
+        alert('Link copied to clipboard!')
+        break
+      case 'twitter':
+        window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank')
+        break
+      case 'facebook':
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank')
+        break
+    }
+    setShowShareMenu(false)
+  }
+
+  const handleViewSimilar = (productId: number) => {
+    console.log(`[v0] Viewing similar product ID: ${productId}`)
+    router.push(`/product/${productId}`)
+  }
 
   return (
     <main className="overflow-hidden">
@@ -76,12 +117,13 @@ export default function ProductDetailPage() {
                   alt={product.name}
                   className="w-full h-full object-cover"
                 />
-                <motion.div
+                <motion.button
+                  onClick={handleWishlist}
                   whileHover={{ scale: 1.05 }}
-                  className="absolute top-4 right-4 bg-white/90 backdrop-blur p-4 rounded-full cursor-pointer shadow-lg"
+                  className="absolute top-4 right-4 bg-white/90 backdrop-blur p-4 rounded-full cursor-pointer shadow-lg hover:bg-white transition-colors"
                 >
-                  <Heart className="w-6 h-6 text-red-500" />
-                </motion.div>
+                  <Heart className={`w-6 h-6 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-red-500'}`} />
+                </motion.button>
               </div>
             </motion.div>
 
@@ -156,19 +198,49 @@ export default function ProductDetailPage() {
               {/* Actions */}
               <div className="flex gap-4">
                 <motion.button
+                  onClick={handleAddToCart}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-4 rounded-lg font-bold text-lg"
                 >
                   Add to Cart
                 </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-4 border border-border hover:bg-muted rounded-lg"
-                >
-                  <Share2 className="w-6 h-6" />
-                </motion.button>
+                <div className="relative">
+                  <motion.button
+                    onClick={() => setShowShareMenu(!showShareMenu)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-4 border border-border hover:bg-muted rounded-lg transition-colors"
+                  >
+                    <Share2 className="w-6 h-6" />
+                  </motion.button>
+                  {showShareMenu && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="absolute top-full right-0 mt-2 bg-card border border-border rounded-lg shadow-lg z-10 w-48"
+                    >
+                      <button
+                        onClick={() => handleShare('twitter')}
+                        className="block w-full text-left px-4 py-2 hover:bg-muted first:rounded-t-lg"
+                      >
+                        Share on Twitter
+                      </button>
+                      <button
+                        onClick={() => handleShare('facebook')}
+                        className="block w-full text-left px-4 py-2 hover:bg-muted"
+                      >
+                        Share on Facebook
+                      </button>
+                      <button
+                        onClick={() => handleShare('copy')}
+                        className="block w-full text-left px-4 py-2 hover:bg-muted last:rounded-b-lg"
+                      >
+                        Copy Link
+                      </button>
+                    </motion.div>
+                  )}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -232,7 +304,12 @@ export default function ProductDetailPage() {
                       <h3 className="font-bold text-lg mb-2">{p.name}</h3>
                       <div className="flex justify-between items-center">
                         <span className="text-xl font-bold text-primary">{p.price}</span>
-                        <Button size="sm">View</Button>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleViewSimilar(p.id)}
+                        >
+                          View
+                        </Button>
                       </div>
                     </div>
                   </Card>

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Filter } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { Button } from '@/components/ui/button'
@@ -24,6 +25,7 @@ const allProducts = [
 const categories = ['All', 'Featured', 'Beginner', 'Intermediate', 'Premium']
 
 export default function CatalogPage() {
+  const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [sortBy, setSortBy] = useState('featured')
 
@@ -37,6 +39,16 @@ export default function CatalogPage() {
     if (sortBy === 'rating') return b.rating - a.rating
     return 0
   })
+
+  const handleViewDetails = (productId: number) => {
+    console.log(`[v0] Viewing product details for product ID: ${productId}`)
+    router.push(`/product/${productId}`)
+  }
+
+  const handleAddToCart = (productId: number, productName: string) => {
+    console.log(`[v0] Added ${productName} (ID: ${productId}) to cart from catalog`)
+    router.push('/cart')
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -133,6 +145,7 @@ export default function CatalogPage() {
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
                       <motion.button
+                        onClick={() => handleViewDetails(product.id)}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                         className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold flex items-center gap-2"
@@ -156,6 +169,7 @@ export default function CatalogPage() {
                     <div className="mt-auto space-y-4">
                       <div className="text-2xl font-bold text-primary">{product.price}</div>
                       <motion.button
+                        onClick={() => handleAddToCart(product.id, product.name)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-2 rounded-lg font-semibold transition-colors"

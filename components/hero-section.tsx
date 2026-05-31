@@ -3,8 +3,11 @@
 import { motion } from 'framer-motion'
 import { Play, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
 export default function HeroSection() {
+  const router = useRouter()
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -23,6 +26,15 @@ export default function HeroSection() {
       y: 0,
       transition: { duration: 0.8, ease: "easeOut" },
     },
+  }
+
+  const handleShopNow = () => {
+    router.push('/catalog')
+  }
+
+  const handleWatchVideos = () => {
+    const videosSection = document.getElementById('videos')
+    videosSection?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -89,10 +101,19 @@ export default function HeroSection() {
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-6 rounded-lg">
+            <Button 
+              size="lg" 
+              onClick={handleShopNow}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-6 rounded-lg"
+            >
               Shop Now
             </Button>
-            <Button size="lg" variant="outline" className="font-semibold px-8 py-6 rounded-lg gap-2">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              onClick={handleWatchVideos}
+              className="font-semibold px-8 py-6 rounded-lg gap-2"
+            >
               <Play className="w-5 h-5" />
               Watch Videos
             </Button>
