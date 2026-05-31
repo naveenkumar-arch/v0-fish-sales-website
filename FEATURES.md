@@ -45,26 +45,36 @@ Successfully built a comprehensive e-commerce platform with full authentication,
   - Nested category menus on mobile
   - Auth buttons on mobile
 
-### 4. Expanded Product Database ✅
-**Total: 28 Premium Products**
+### 4. Expanded Product Database with Unique Images ✅
+**Total: 30 Premium Products with Unique High-Quality Images**
+
+Each product has its own distinct Unsplash image - NO image reuse across products!
 
 #### Freshwater Fish (11 items)
-- **Beginner Level (4)**: Goldfish, Neon Tetra, Guppy, Corydoras
-- **Intermediate Level (4)**: Angelfish, Betta, Pleco, Oscar
-- **Advanced Level (3)**: Koi, Discus, Cichlid Assortment
+- **Beginner Level (4)**: Goldfish, Neon Tetra, Guppy, Corydoras Catfish
+- **Intermediate Level (4)**: Angelfish Pair, Betta Fish, Pleco Catfish, Discus Showpiece
+- **Advanced Level (3)**: Koi Premium, Oscar Fish Pair, Cichlid Assortment
 
-#### Saltwater Fish (6 items)
-- **Beginner Level (3)**: Clownfish Pair, Yellow Tang, Blue Damselfish
-- **Intermediate Level (2)**: Moorish Idol, Lionfish
-- **Advanced Level (1)**: Seahorse Pair, Mandarin Fish
+#### Saltwater Fish (7 items)
+- **Beginner Level (3)**: Clownfish Pair, Yellow Tang, Royal Dottyback
+- **Intermediate Level (2)**: Blue Tang Fish, Mandarin Fish
+- **Advanced Level (2)**: Seahorse Premium Pair, Lion Fish Striped
 
-#### Aquatic Plants (5 items)
-- Amazon Sword, Java Fern, Anubias (Beginner)
-- Rotala Red Stem (Intermediate)
+#### Aquatic Plants (6 items)
+- **Beginner Level (3)**: Amazon Sword Plant, Java Fern Plant, Anubias Nana Plant
+- **Intermediate Level (2)**: Rotala Rotundifolia, Ludwigia Plant Red
 
 #### Accessories (6 items)
-- Aquarium Filter Pro, LED Light, Heater, Air Pump
-- Tank Cleaning Kit, Water Test Kit
+- **Beginner Level (3)**: Premium Glass Aquarium 20L, Aquarium Filter System, LED Aquarium Light Pro
+- **Intermediate Level (2)**: Premium Substrate Mix, CO2 Injection System, Water Testing Kit Pro
+- **Advanced Level (1)**: Premium Aquarium Stand 75G
+
+#### Image Sources
+All images sourced from Unsplash with unique URLs:
+- Fish images: High-quality photos of various fish species
+- Plant images: Aquatic plant close-ups and tank setups
+- Accessory images: Aquarium equipment and tools
+- Each product has a different Unsplash photo ID
 
 ### 5. Product Features ✅
 Each product includes:
