@@ -116,26 +116,27 @@ export default function ContactSection() {
             {contactMethods.map((method, i) => {
               const Icon = method.icon
               return (
-                <motion.a
+                <motion.div
                   key={i}
-                  href={method.link}
+                  onClick={() => window.location.href = method.link}
                   variants={itemVariants}
                   whileHover={{ x: 8 }}
                   className="group p-6 rounded-lg border border-border bg-card/50 backdrop-blur hover:bg-card hover:border-primary/50 transition-all duration-300 cursor-pointer"
-                  onClick={() => console.log(`[v0] Clicked ${method.title}`)}
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h3 className="font-bold text-foreground group-hover:text-primary transition-colors">
                         {method.title}
                       </h3>
-                      <p className="text-foreground/60 text-sm mt-1">{method.value}</p>
+                      <p className="text-foreground font-semibold text-sm mt-2">
+                        {method.value}
+                      </p>
                     </div>
                   </div>
-                </motion.a>
+                </motion.div>
               )
             })}
           </motion.div>
